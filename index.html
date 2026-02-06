@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Our Love Story</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
@@ -33,21 +33,19 @@
                         'glow': 'glow 2s ease-in-out infinite alternate',
                         'shake': 'shake 0.5s ease-in-out',
                         'float-slow': 'float 8s ease-in-out infinite',
-                        'typewriter': 'typewriter 3s steps(30) forwards',
-                        'blink': 'blink 0.8s step-end infinite',
                         'reveal': 'reveal 0.8s ease-out forwards',
                         'sparkle': 'sparkle 1.5s ease-in-out infinite',
                     },
                     keyframes: {
                         float: {
                             '0%, 100%': { transform: 'translateY(0) rotate(0deg)' },
-                            '50%': { transform: 'translateY(-20px) rotate(5deg)' },
+                            '50%': { transform: 'translateY(-20px) rotate(3deg)' },
                         },
                         heartbeat: {
                             '0%, 100%': { transform: 'scale(1)' },
-                            '25%': { transform: 'scale(1.2)' },
+                            '25%': { transform: 'scale(1.15)' },
                             '45%': { transform: 'scale(1)' },
-                            '60%': { transform: 'scale(1.15)' },
+                            '60%': { transform: 'scale(1.1)' },
                         },
                         shimmer: {
                             '0%': { backgroundPosition: '-200% center' },
@@ -61,14 +59,6 @@
                             '0%, 100%': { transform: 'translateX(0)' },
                             '25%': { transform: 'translateX(-10px) rotate(-2deg)' },
                             '75%': { transform: 'translateX(10px) rotate(2deg)' },
-                        },
-                        typewriter: {
-                            '0%': { width: '0' },
-                            '100%': { width: '100%' },
-                        },
-                        blink: {
-                            '0%, 100%': { opacity: '1' },
-                            '50%': { opacity: '0' },
                         },
                         reveal: {
                             '0%': { opacity: '0', transform: 'translateY(30px) scale(0.9)' },
@@ -85,18 +75,31 @@
     </script>
     <style>
         * {
-            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23ff0a54' d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E") 12 12, auto;
+            -webkit-tap-highlight-color: transparent;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            overflow-x: hidden;
+            width: 100%;
         }
 
         .glass-card {
             background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.15);
             box-shadow: 0 8px 32px rgba(255, 10, 84, 0.2);
         }
 
         .hide-scrollbar::-webkit-scrollbar {
             display: none;
+        }
+
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
 
         /* Floating Hearts Background */
@@ -111,38 +114,39 @@
 
         .heart-particle {
             position: absolute;
-            font-size: 20px;
-            animation: floatUp 8s linear infinite;
-            opacity: 0.6;
+            animation: floatUp 10s linear infinite;
+            opacity: 0.5;
         }
 
         @keyframes floatUp {
             0% {
-                transform: translateY(100vh) rotate(0deg);
+                transform: translateY(100vh) rotate(0deg) scale(0.5);
                 opacity: 0;
             }
 
             10% {
-                opacity: 0.6;
+                opacity: 0.5;
             }
 
             90% {
-                opacity: 0.6;
+                opacity: 0.5;
             }
 
             100% {
-                transform: translateY(-100vh) rotate(720deg);
+                transform: translateY(-100vh) rotate(720deg) scale(1);
                 opacity: 0;
             }
         }
 
-        /* Cursor Trail */
-        .cursor-trail {
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            font-size: 16px;
-            transition: opacity 0.3s;
+        /* Cursor Trail - Desktop Only */
+        @media (hover: hover) and (pointer: fine) {
+            .cursor-trail {
+                position: fixed;
+                pointer-events: none;
+                z-index: 9999;
+                font-size: 14px;
+                transition: opacity 0.3s;
+            }
         }
 
         /* Shimmer Text */
@@ -212,7 +216,7 @@
         /* Love Meter */
         .love-meter {
             width: 100%;
-            height: 8px;
+            height: 6px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 9999px;
             overflow: hidden;
@@ -246,8 +250,8 @@
         /* Pulse Ring */
         .pulse-ring {
             position: absolute;
-            inset: -10px;
-            border: 3px solid #ff0a54;
+            inset: -8px;
+            border: 2px solid #ff0a54;
             border-radius: inherit;
             animation: pulse-ring 2s ease-out infinite;
         }
@@ -259,7 +263,7 @@
             }
 
             100% {
-                transform: scale(1.5);
+                transform: scale(1.4);
                 opacity: 0;
             }
         }
@@ -269,16 +273,14 @@
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .interactive-card:hover {
-            transform: translateY(-10px) rotateX(5deg);
+        @media (hover: hover) {
+            .interactive-card:hover {
+                transform: translateY(-8px);
+            }
         }
 
-        /* Typewriter effect */
-        .typewriter-text {
-            overflow: hidden;
-            white-space: nowrap;
-            border-right: 3px solid #ff0a54;
-            animation: typewriter 3s steps(40) forwards, blink 0.8s step-end infinite;
+        .interactive-card:active {
+            transform: scale(0.98);
         }
 
         /* Aurora Background */
@@ -286,27 +288,42 @@
             position: fixed;
             inset: 0;
             background:
-                radial-gradient(ellipse at 20% 80%, rgba(255, 10, 84, 0.15) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 20%, rgba(255, 71, 126, 0.15) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 50%, rgba(255, 133, 161, 0.1) 0%, transparent 50%);
+                radial-gradient(ellipse at 20% 80%, rgba(255, 10, 84, 0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(255, 71, 126, 0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(255, 133, 161, 0.08) 0%, transparent 50%);
             animation: aurora 10s ease-in-out infinite alternate;
             pointer-events: none;
-            z-index: 0;
+            z-index: 2;
         }
 
-        @keyframes aurora {
+        /* Photo Card Stack */
+        .photo-card {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: center bottom;
+        }
+
+        .photo-card:hover {
+            filter: brightness(1.05);
+        }
+
+        .photo-card.shuffling {
+            animation: shuffleCard 0.5s ease forwards;
+        }
+
+        @keyframes shuffleCard {
             0% {
-                background:
-                    radial-gradient(ellipse at 20% 80%, rgba(255, 10, 84, 0.15) 0%, transparent 50%),
-                    radial-gradient(ellipse at 80% 20%, rgba(255, 71, 126, 0.15) 0%, transparent 50%),
-                    radial-gradient(ellipse at 50% 50%, rgba(255, 133, 161, 0.1) 0%, transparent 50%);
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+
+            50% {
+                transform: translateY(-100px) rotate(15deg) scale(0.9);
+                opacity: 0.5;
             }
 
             100% {
-                background:
-                    radial-gradient(ellipse at 80% 20%, rgba(255, 10, 84, 0.2) 0%, transparent 50%),
-                    radial-gradient(ellipse at 20% 80%, rgba(255, 71, 126, 0.2) 0%, transparent 50%),
-                    radial-gradient(ellipse at 50% 50%, rgba(255, 133, 161, 0.15) 0%, transparent 50%);
+                transform: translateY(20px) rotate(-8deg);
+                opacity: 1;
             }
         }
 
@@ -315,7 +332,7 @@
             position: fixed;
             inset: 0;
             background: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-            opacity: 0.03;
+            opacity: 0.02;
             pointer-events: none;
             z-index: 2;
         }
@@ -324,8 +341,8 @@
         .ripple {
             position: absolute;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(255, 10, 84, 0.5) 0%, transparent 70%);
-            animation: ripple 1s ease-out forwards;
+            background: radial-gradient(circle, rgba(255, 10, 84, 0.4) 0%, transparent 70%);
+            animation: ripple 0.8s ease-out forwards;
             pointer-events: none;
         }
 
@@ -337,8 +354,8 @@
             }
 
             100% {
-                width: 300px;
-                height: 300px;
+                width: 200px;
+                height: 200px;
                 opacity: 0;
             }
         }
@@ -346,33 +363,34 @@
         /* Sparkle decoration */
         .sparkle {
             position: absolute;
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             background: white;
             border-radius: 50%;
             animation: sparkle 1.5s ease-in-out infinite;
+            pointer-events: none;
         }
 
         /* Countdown styling */
         .countdown-number {
-            font-size: 8rem;
+            font-size: 5rem;
             font-weight: bold;
             background: linear-gradient(135deg, #ff0a54, #ff477e);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: none;
             filter: drop-shadow(0 0 30px rgba(255, 10, 84, 0.5));
+        }
+
+        @media (min-width: 768px) {
+            .countdown-number {
+                font-size: 8rem;
+            }
         }
 
         /* Click indicator */
         .click-indicator {
-            animation: pulse 1s ease-in-out infinite, float 3s ease-in-out infinite;
-        }
-
-        /* Magnetic button effect */
-        .magnetic-btn {
-            transition: transform 0.2s ease-out;
+            animation: pulse 1.5s ease-in-out infinite, float 4s ease-in-out infinite;
         }
 
         /* Easter Egg glow */
@@ -383,15 +401,59 @@
         .easter-egg::after {
             content: '✨';
             position: absolute;
-            top: -10px;
-            right: -10px;
-            font-size: 12px;
+            top: -8px;
+            right: -8px;
+            font-size: 10px;
             opacity: 0;
             transition: opacity 0.3s;
         }
 
-        .easter-egg:hover::after {
+        .easter-egg:hover::after,
+        .easter-egg:active::after {
             opacity: 1;
+        }
+
+        /* Mobile-specific styles */
+        @media (max-width: 640px) {
+            .memory-text {
+                font-size: 0.875rem !important;
+            }
+
+            .memory-card-img {
+                height: 200px !important;
+            }
+
+            .stats-grid {
+                gap: 0.75rem !important;
+            }
+
+            .stat-card {
+                padding: 0.75rem !important;
+            }
+
+            .stat-number {
+                font-size: 1.5rem !important;
+            }
+        }
+
+        /* Touch feedback */
+        .touch-feedback:active {
+            transform: scale(0.95);
+            opacity: 0.9;
+        }
+
+        /* Disable cursor effects on touch devices */
+        @media (hover: none) and (pointer: coarse) {
+            * {
+                cursor: auto !important;
+            }
+        }
+
+        /* Enable custom cursor on desktop */
+        @media (hover: hover) and (pointer: fine) {
+            * {
+                cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath fill='%23ff0a54' d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E") 10 10, auto;
+            }
         }
     </style>
 </head>
@@ -407,12 +469,12 @@
     <!-- Floating Hearts Container -->
     <div class="floating-hearts" id="floating-hearts"></div>
 
-    <!-- Cursor Trail Container -->
+    <!-- Cursor Trail Container (Desktop Only) -->
     <div id="cursor-trail"></div>
 
     <!-- Entry Screen with Countdown -->
     <div id="entry-screen"
-        class="fixed inset-0 z-50 bg-black flex flex-col items-center justify-center transition-opacity duration-1000"
+        class="fixed inset-0 z-50 bg-black flex flex-col items-center justify-center transition-opacity duration-1000 px-4"
         onclick="createRipple(event)">
 
         <!-- Mystical Background -->
@@ -425,10 +487,10 @@
         </div>
 
         <!-- Main Content -->
-        <div id="entry-content" class="relative z-10 text-center">
-            <div class="relative inline-block mb-8">
+        <div id="entry-content" class="relative z-10 text-center w-full max-w-md mx-auto">
+            <div class="relative inline-block mb-6 md:mb-8">
                 <h1
-                    class="font-serif text-3xl md:text-5xl text-love-light mb-4 opacity-80 tracking-widest uppercase shimmer-text">
+                    class="font-serif text-2xl sm:text-3xl md:text-5xl text-love-light mb-3 md:mb-4 opacity-80 tracking-widest uppercase shimmer-text px-4">
                     A Story About Us
                 </h1>
                 <div class="h-0.5 bg-gradient-to-r from-transparent via-love-red to-transparent animate-pulse"></div>
@@ -436,13 +498,13 @@
 
             <!-- Mysterious Subtitle -->
             <p
-                class="text-gray-400 text-sm md:text-base mb-12 max-w-md mx-auto opacity-0 animate-[reveal_1s_ease-out_0.5s_forwards]">
+                class="text-gray-400 text-xs sm:text-sm md:text-base mb-8 md:mb-12 max-w-xs sm:max-w-md mx-auto opacity-0 animate-[reveal_1s_ease-out_0.5s_forwards] px-4">
                 Some stories are written in the stars... <br>
                 <span class="text-love-light">This one was written in my heart.</span>
             </p>
 
             <!-- Main Button with Effects -->
-            <button onclick="startCountdown(event)" class="group relative magnetic-btn" id="main-heart-btn">
+            <button onclick="startCountdown(event)" class="group relative touch-feedback" id="main-heart-btn">
                 <!-- Pulse Rings -->
                 <div class="pulse-ring rounded-full"></div>
                 <div class="pulse-ring rounded-full" style="animation-delay: 0.5s;"></div>
@@ -450,14 +512,14 @@
 
                 <!-- Glow Effect -->
                 <div
-                    class="absolute inset-0 bg-love-red blur-2xl opacity-30 group-hover:opacity-80 transition duration-500 rounded-full animate-glow">
+                    class="absolute inset-0 bg-love-red blur-xl opacity-30 group-hover:opacity-80 group-active:opacity-80 transition duration-500 rounded-full animate-glow">
                 </div>
 
                 <!-- Button -->
                 <div
-                    class="glow-btn relative bg-gradient-to-r from-love-red to-love-pink text-white w-28 h-28 md:w-32 md:h-32 rounded-full flex items-center justify-center shadow-2xl transform group-hover:scale-110 transition-all duration-300 cursor-pointer animate-heartbeat">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 md:h-14 md:w-14" viewBox="0 0 20 20"
-                        fill="currentColor">
+                    class="glow-btn relative bg-gradient-to-r from-love-red to-love-pink text-white w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full flex items-center justify-center shadow-2xl transform group-hover:scale-110 group-active:scale-105 transition-all duration-300 cursor-pointer animate-heartbeat">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 sm:h-12 sm:w-12 md:h-14 md:w-14"
+                        viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd"
                             d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
                             clip-rule="evenodd" />
@@ -466,15 +528,14 @@
             </button>
 
             <!-- Click Me Indicator -->
-            <div class="mt-6 click-indicator">
-                <p class="font-serif text-sm text-gray-400 group-hover:text-white transition">
-                    👆 <span class="text-love-light">Click</span> to Open My Heart
+            <div class="mt-5 md:mt-6 click-indicator">
+                <p class="font-serif text-xs sm:text-sm text-gray-400 group-hover:text-white transition">
+                    👆 <span class="text-love-light">Tap</span> to Open My Heart
                 </p>
-                <p class="text-xs text-gray-600 mt-2">( or double-click for a secret )</p>
             </div>
 
             <!-- Love Meter Teaser -->
-            <div class="mt-12 max-w-xs mx-auto opacity-0 animate-[reveal_1s_ease-out_1s_forwards]">
+            <div class="mt-8 md:mt-12 max-w-xs mx-auto opacity-0 animate-[reveal_1s_ease-out_1s_forwards] px-4">
                 <p class="text-xs text-gray-500 mb-2">Love Loading...</p>
                 <div class="love-meter">
                     <div class="love-meter-fill" id="love-meter-fill" style="width: 0%"></div>
@@ -483,9 +544,9 @@
         </div>
 
         <!-- Easter Egg - Hidden Corner Click -->
-        <div class="absolute bottom-4 right-4 easter-egg opacity-30 hover:opacity-100 transition cursor-pointer"
-            onclick="triggerEasterEgg(event)" title="Psst... click me!">
-            <span class="text-2xl">🔮</span>
+        <div class="absolute bottom-4 right-4 easter-egg opacity-30 hover:opacity-100 active:opacity-100 transition cursor-pointer p-2"
+            onclick="triggerEasterEgg(event)" title="Psst... tap me!">
+            <span class="text-xl sm:text-2xl">🔮</span>
         </div>
     </div>
 
@@ -494,56 +555,61 @@
         class="opacity-0 transition-opacity duration-1000 min-h-screen bg-[url('https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-fixed bg-center relative">
         <div class="absolute inset-0 bg-gradient-to-b from-black via-black/80 to-love-red/20 pointer-events-none"></div>
 
-        <div class="relative z-10 max-w-4xl mx-auto px-6 py-20">
+        <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 py-12 sm:py-16 md:py-20">
 
             <!-- Header with Enhanced Effects -->
-            <header class="text-center mb-32 animate-float">
-                <p class="font-script text-4xl md:text-5xl text-love-light mb-4 shimmer-text">Happy Valentine's Day</p>
+            <header class="text-center mb-16 sm:mb-24 md:mb-32 animate-float">
+                <p
+                    class="font-script text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-love-light mb-3 md:mb-4 shimmer-text">
+                    Happy Valentine's Day</p>
                 <h1
-                    class="font-serif text-6xl md:text-8xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-love-pink to-love-red drop-shadow-lg">
+                    class="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-love-pink to-love-red drop-shadow-lg px-2">
                     My Forever
                 </h1>
-                <p class="mt-6 text-lg text-gray-300 max-w-lg mx-auto leading-relaxed">
+                <p
+                    class="mt-4 sm:mt-6 text-sm sm:text-base md:text-lg text-gray-300 max-w-lg mx-auto leading-relaxed px-4">
                     Every moment with you feels like a beautiful dream I never want to wake up from. Here are the pieces
                     of my heart that belong to you.
                 </p>
 
                 <!-- Interactive Love Counter -->
-                <div class="mt-10 flex justify-center gap-8 flex-wrap">
-                    <div class="text-center cursor-pointer hover:scale-110 transition interactive-card p-4 glass-card rounded-xl"
+                <div
+                    class="mt-8 sm:mt-10 grid grid-cols-3 gap-3 sm:gap-4 md:gap-8 max-w-md md:max-w-lg mx-auto stats-grid px-2">
+                    <div class="stat-card text-center cursor-pointer active:scale-95 transition interactive-card p-3 sm:p-4 glass-card rounded-xl touch-feedback"
                         onclick="incrementLove(this)">
-                        <div class="text-4xl font-bold text-love-red" id="days-counter">0</div>
-                        <div class="text-sm text-gray-400">Days Together</div>
-                        <div class="text-xs text-love-light mt-1">👆 Click to feel time fly</div>
+                        <div class="stat-number text-2xl sm:text-3xl md:text-4xl font-bold text-love-red"
+                            id="days-counter">0</div>
+                        <div class="text-xs sm:text-sm text-gray-400">Days</div>
+                        <div class="text-[10px] sm:text-xs text-love-light mt-1 hidden sm:block">👆 Tap</div>
                     </div>
-                    <div class="text-center cursor-pointer hover:scale-110 transition interactive-card p-4 glass-card rounded-xl"
+                    <div class="stat-card text-center cursor-pointer active:scale-95 transition interactive-card p-3 sm:p-4 glass-card rounded-xl touch-feedback"
                         onclick="showHeartBurst(event)">
-                        <div class="text-4xl font-bold text-love-pink">∞</div>
-                        <div class="text-sm text-gray-400">Reasons I Love You</div>
-                        <div class="text-xs text-love-light mt-1">👆 Click to see them</div>
+                        <div class="stat-number text-2xl sm:text-3xl md:text-4xl font-bold text-love-pink">∞</div>
+                        <div class="text-xs sm:text-sm text-gray-400">Reasons</div>
+                        <div class="text-[10px] sm:text-xs text-love-light mt-1 hidden sm:block">👆 Tap</div>
                     </div>
-                    <div class="text-center cursor-pointer hover:scale-110 transition interactive-card p-4 glass-card rounded-xl hold-reveal"
-                        onmousedown="startHold(this)" onmouseup="endHold(this)" onmouseleave="endHold(this)">
-                        <div class="text-4xl font-bold text-love-light">💎</div>
-                        <div class="text-sm text-gray-400">Secret Message</div>
-                        <div class="text-xs text-love-light mt-1">👆 Hold to reveal</div>
+                    <div class="stat-card text-center cursor-pointer active:scale-95 transition interactive-card p-3 sm:p-4 glass-card rounded-xl hold-reveal touch-feedback"
+                        ontouchstart="startHold(this)" ontouchend="endHold(this)" onmousedown="startHold(this)"
+                        onmouseup="endHold(this)" onmouseleave="endHold(this)">
+                        <div class="stat-number text-2xl sm:text-3xl md:text-4xl font-bold text-love-light">💎</div>
+                        <div class="text-xs sm:text-sm text-gray-400">Secret</div>
+                        <div class="text-[10px] sm:text-xs text-love-light mt-1 hidden sm:block">👆 Hold</div>
                         <div
-                            class="secret-msg absolute inset-0 flex items-center justify-center bg-love-red rounded-xl">
-                            <span class="text-white font-serif">You're my everything!</span>
+                            class="secret-msg absolute inset-0 flex items-center justify-center bg-love-red rounded-xl p-2">
+                            <span class="text-white font-serif text-xs sm:text-sm">You're my everything!</span>
                         </div>
                     </div>
                 </div>
             </header>
 
             <!-- Memory Cards Section -->
-            <section class="space-y-24">
+            <section class="space-y-12 sm:space-y-16 md:space-y-24">
 
                 <!-- Memory 1 - The Beginning -->
-                <div class="group relative flex flex-col md:flex-row items-center gap-8 cursor-pointer interactive-card"
-                    onclick="revealMemory(this, 'The First Date', 'I was so nervous, but the moment you smiled, I knew I was in trouble. You looked breathtaking.')"
-                    ondblclick="showSecretMessage(this, 'My heart skipped a beat when our eyes first met. I knew you were special.')">
+                <div class="group relative flex flex-col md:flex-row items-center gap-4 sm:gap-6 md:gap-8 cursor-pointer interactive-card touch-feedback"
+                    onclick="revealMemory(this, 'The First Date', 'I was so nervous, but the moment you smiled, I knew I was in trouble. You looked breathtaking.')">
                     <div
-                        class="w-full md:w-1/2 overflow-hidden rounded-2xl shadow-2xl border-2 border-white/10 transform transition duration-500 group-hover:scale-105 group-hover:border-love-pink/50 relative">
+                        class="w-full md:w-1/2 overflow-hidden rounded-xl sm:rounded-2xl shadow-2xl border-2 border-white/10 transform transition duration-500 group-hover:scale-[1.02] group-active:scale-[0.98] group-hover:border-love-pink/50 relative">
                         <!-- Sparkle decorations -->
                         <div class="sparkle" style="top: 10%; left: 10%; animation-delay: 0s;"></div>
                         <div class="sparkle" style="top: 20%; right: 15%; animation-delay: 0.5s;"></div>
@@ -551,164 +617,230 @@
 
                         <img src="https://images.unsplash.com/photo-1522673607200-1645062cd958?q=80&w=2070&auto=format&fit=crop"
                             alt="Couple"
-                            class="w-full h-80 object-cover opacity-80 group-hover:opacity-100 transition duration-500">
+                            class="memory-card-img w-full h-52 sm:h-64 md:h-80 object-cover opacity-80 group-hover:opacity-100 group-active:opacity-100 transition duration-500">
 
                         <!-- Click indicator overlay -->
                         <div
-                            class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition">
+                            class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 group-active:opacity-100 transition">
                             <div class="text-white text-center">
-                                <div class="text-3xl mb-2">👆</div>
-                                <p class="text-sm">Tap to reveal memory</p>
-                                <p class="text-xs text-love-light">Double-tap for secret</p>
+                                <div class="text-2xl sm:text-3xl mb-2">👆</div>
+                                <p class="text-xs sm:text-sm">Tap to reveal memory</p>
                             </div>
                         </div>
                     </div>
                     <div
-                        class="w-full md:w-1/2 text-center md:text-left opacity-50 group-hover:opacity-100 transition duration-500">
-                        <h3 class="font-serif text-3xl text-white mb-2">The Beginning</h3>
-                        <p class="text-love-light font-script text-xl animate-pulse">✨ Tap to remember...</p>
-                        <div class="mt-4 love-meter">
+                        class="w-full md:w-1/2 text-center md:text-left opacity-70 group-hover:opacity-100 group-active:opacity-100 transition duration-500 px-2">
+                        <h3 class="font-serif text-xl sm:text-2xl md:text-3xl text-white mb-1 sm:mb-2">The Beginning
+                        </h3>
+                        <p class="text-love-light font-script text-base sm:text-lg md:text-xl animate-pulse">✨ Tap to
+                            remember...</p>
+                        <div class="mt-3 sm:mt-4 love-meter max-w-xs mx-auto md:mx-0">
                             <div class="love-meter-fill" style="width: 90%"></div>
                         </div>
-                        <p class="text-xs text-gray-500 mt-2">Memory intensity: 90%</p>
+                        <p class="text-[10px] sm:text-xs text-gray-500 mt-2">Memory intensity: 90%</p>
                     </div>
                 </div>
 
                 <!-- Memory 2 - The Adventure -->
-                <div class="group relative flex flex-col md:flex-row-reverse items-center gap-8 cursor-pointer interactive-card"
-                    onclick="revealMemory(this, 'Our Crazy Adventure', 'We got lost, it rained, and the car broke down. But laughing with you made it the best day of my life.')"
-                    ondblclick="showSecretMessage(this, 'That rainy day, when you held my hand... I never wanted to let go.')">
+                <div class="group relative flex flex-col md:flex-row-reverse items-center gap-4 sm:gap-6 md:gap-8 cursor-pointer interactive-card touch-feedback"
+                    onclick="revealMemory(this, 'Our Crazy Adventure', 'We got lost, it rained, and the car broke down. But laughing with you made it the best day of my life.')">
                     <div
-                        class="w-full md:w-1/2 overflow-hidden rounded-2xl shadow-2xl border-2 border-white/10 transform transition duration-500 group-hover:scale-105 group-hover:border-love-pink/50 relative">
+                        class="w-full md:w-1/2 overflow-hidden rounded-xl sm:rounded-2xl shadow-2xl border-2 border-white/10 transform transition duration-500 group-hover:scale-[1.02] group-active:scale-[0.98] group-hover:border-love-pink/50 relative">
                         <div class="sparkle" style="top: 15%; right: 10%; animation-delay: 0.3s;"></div>
                         <div class="sparkle" style="bottom: 20%; left: 15%; animation-delay: 0.8s;"></div>
 
                         <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?q=80&w=1974&auto=format&fit=crop"
                             alt="Adventure"
-                            class="w-full h-80 object-cover opacity-80 group-hover:opacity-100 transition duration-500">
+                            class="memory-card-img w-full h-52 sm:h-64 md:h-80 object-cover opacity-80 group-hover:opacity-100 group-active:opacity-100 transition duration-500">
 
                         <div
-                            class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition">
+                            class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 group-active:opacity-100 transition">
                             <div class="text-white text-center">
-                                <div class="text-3xl mb-2">🎭</div>
-                                <p class="text-sm">Tap to feel the moment</p>
-                                <p class="text-xs text-love-light">Double-tap for secret</p>
+                                <div class="text-2xl sm:text-3xl mb-2">🎭</div>
+                                <p class="text-xs sm:text-sm">Tap to feel the moment</p>
                             </div>
                         </div>
                     </div>
                     <div
-                        class="w-full md:w-1/2 text-center md:text-right opacity-50 group-hover:opacity-100 transition duration-500">
-                        <h3 class="font-serif text-3xl text-white mb-2">The Adventure</h3>
-                        <p class="text-love-light font-script text-xl animate-pulse">🌟 Tap to feel...</p>
-                        <div class="mt-4 love-meter">
+                        class="w-full md:w-1/2 text-center md:text-right opacity-70 group-hover:opacity-100 group-active:opacity-100 transition duration-500 px-2">
+                        <h3 class="font-serif text-xl sm:text-2xl md:text-3xl text-white mb-1 sm:mb-2">The Adventure
+                        </h3>
+                        <p class="text-love-light font-script text-base sm:text-lg md:text-xl animate-pulse">🌟 Tap to
+                            feel...</p>
+                        <div class="mt-3 sm:mt-4 love-meter max-w-xs mx-auto md:ml-auto md:mr-0">
                             <div class="love-meter-fill" style="width: 100%"></div>
                         </div>
-                        <p class="text-xs text-gray-500 mt-2">Memory intensity: 100%</p>
+                        <p class="text-[10px] sm:text-xs text-gray-500 mt-2">Memory intensity: 100%</p>
                     </div>
                 </div>
 
                 <!-- Memory 3 - The Peace -->
-                <div class="group relative flex flex-col md:flex-row items-center gap-8 cursor-pointer interactive-card"
-                    onclick="revealMemory(this, 'Just You & Me', 'In a crowded room, my eyes will always search for you. You are my peace in the chaos.')"
-                    ondblclick="showSecretMessage(this, 'Home isn\'t a place. Home is wherever you are.')">
+                <div class="group relative flex flex-col md:flex-row items-center gap-4 sm:gap-6 md:gap-8 cursor-pointer interactive-card touch-feedback"
+                    onclick="revealMemory(this, 'Just You & Me', 'In a crowded room, my eyes will always search for you. You are my peace in the chaos.')">
                     <div
-                        class="w-full md:w-1/2 overflow-hidden rounded-2xl shadow-2xl border-2 border-white/10 transform transition duration-500 group-hover:scale-105 group-hover:border-love-pink/50 relative">
+                        class="w-full md:w-1/2 overflow-hidden rounded-xl sm:rounded-2xl shadow-2xl border-2 border-white/10 transform transition duration-500 group-hover:scale-[1.02] group-active:scale-[0.98] group-hover:border-love-pink/50 relative">
                         <div class="sparkle" style="top: 5%; left: 5%; animation-delay: 0.2s;"></div>
                         <div class="sparkle" style="top: 30%; right: 10%; animation-delay: 0.7s;"></div>
                         <div class="sparkle" style="bottom: 10%; left: 25%; animation-delay: 1.2s;"></div>
 
                         <img src="https://images.unsplash.com/photo-1621112904887-419379ce6824?q=80&w=2072&auto=format&fit=crop"
                             alt="Love"
-                            class="w-full h-80 object-cover opacity-80 group-hover:opacity-100 transition duration-500">
+                            class="memory-card-img w-full h-52 sm:h-64 md:h-80 object-cover opacity-80 group-hover:opacity-100 group-active:opacity-100 transition duration-500">
 
                         <div
-                            class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition">
+                            class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 group-active:opacity-100 transition">
                             <div class="text-white text-center">
-                                <div class="text-3xl mb-2">💕</div>
-                                <p class="text-sm">Tap to read my heart</p>
-                                <p class="text-xs text-love-light">Double-tap for secret</p>
+                                <div class="text-2xl sm:text-3xl mb-2">💕</div>
+                                <p class="text-xs sm:text-sm">Tap to read my heart</p>
                             </div>
                         </div>
                     </div>
                     <div
-                        class="w-full md:w-1/2 text-center md:text-left opacity-50 group-hover:opacity-100 transition duration-500">
-                        <h3 class="font-serif text-3xl text-white mb-2">The Peace</h3>
-                        <p class="text-love-light font-script text-xl animate-pulse">💫 Tap to read...</p>
-                        <div class="mt-4 love-meter">
+                        class="w-full md:w-1/2 text-center md:text-left opacity-70 group-hover:opacity-100 group-active:opacity-100 transition duration-500 px-2">
+                        <h3 class="font-serif text-xl sm:text-2xl md:text-3xl text-white mb-1 sm:mb-2">The Peace</h3>
+                        <p class="text-love-light font-script text-base sm:text-lg md:text-xl animate-pulse">💫 Tap to
+                            read...</p>
+                        <div class="mt-3 sm:mt-4 love-meter max-w-xs mx-auto md:mx-0">
                             <div class="love-meter-fill" style="width: 95%"></div>
                         </div>
-                        <p class="text-xs text-gray-500 mt-2">Memory intensity: 95%</p>
+                        <p class="text-[10px] sm:text-xs text-gray-500 mt-2">Memory intensity: 95%</p>
                     </div>
                 </div>
 
             </section>
 
             <!-- Interactive Promise Section -->
-            <section class="mt-32 text-center">
-                <div class="glass-card rounded-2xl p-8 md:p-12 max-w-2xl mx-auto relative overflow-hidden">
+            <section class="mt-20 sm:mt-24 md:mt-32 text-center px-2">
+                <div
+                    class="glass-card rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-8 lg:p-12 max-w-2xl mx-auto relative overflow-hidden">
                     <div
                         class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-love-red via-love-pink to-love-light">
                     </div>
 
-                    <h2 class="font-serif text-3xl md:text-4xl text-white mb-6">My Promises to You</h2>
+                    <h2 class="font-serif text-xl sm:text-2xl md:text-3xl lg:text-4xl text-white mb-4 sm:mb-6">My
+                        Promises to You</h2>
 
-                    <div class="space-y-4 text-left">
-                        <div class="flex items-center gap-4 cursor-pointer hover:bg-white/5 p-3 rounded-lg transition"
+                    <div class="space-y-2 sm:space-y-3 md:space-y-4 text-left">
+                        <div class="flex items-center gap-3 sm:gap-4 cursor-pointer hover:bg-white/5 active:bg-white/10 p-2 sm:p-3 rounded-lg transition touch-feedback"
                             onclick="checkPromise(this)">
-                            <div class="w-6 h-6 rounded-full border-2 border-love-red flex items-center justify-center">
-                                <span class="check-mark hidden text-love-red">✓</span>
+                            <div
+                                class="w-5 h-5 sm:w-6 sm:h-6 rounded-full border-2 border-love-red flex items-center justify-center flex-shrink-0">
+                                <span class="check-mark hidden text-love-red text-xs sm:text-sm">✓</span>
                             </div>
-                            <span class="text-gray-300">To love you more each day</span>
+                            <span class="text-gray-300 text-sm sm:text-base">To love you more each day</span>
                         </div>
-                        <div class="flex items-center gap-4 cursor-pointer hover:bg-white/5 p-3 rounded-lg transition"
+                        <div class="flex items-center gap-3 sm:gap-4 cursor-pointer hover:bg-white/5 active:bg-white/10 p-2 sm:p-3 rounded-lg transition touch-feedback"
                             onclick="checkPromise(this)">
-                            <div class="w-6 h-6 rounded-full border-2 border-love-red flex items-center justify-center">
-                                <span class="check-mark hidden text-love-red">✓</span>
+                            <div
+                                class="w-5 h-5 sm:w-6 sm:h-6 rounded-full border-2 border-love-red flex items-center justify-center flex-shrink-0">
+                                <span class="check-mark hidden text-love-red text-xs sm:text-sm">✓</span>
                             </div>
-                            <span class="text-gray-300">To be your biggest supporter</span>
+                            <span class="text-gray-300 text-sm sm:text-base">To be your biggest supporter</span>
                         </div>
-                        <div class="flex items-center gap-4 cursor-pointer hover:bg-white/5 p-3 rounded-lg transition"
+                        <div class="flex items-center gap-3 sm:gap-4 cursor-pointer hover:bg-white/5 active:bg-white/10 p-2 sm:p-3 rounded-lg transition touch-feedback"
                             onclick="checkPromise(this)">
-                            <div class="w-6 h-6 rounded-full border-2 border-love-red flex items-center justify-center">
-                                <span class="check-mark hidden text-love-red">✓</span>
+                            <div
+                                class="w-5 h-5 sm:w-6 sm:h-6 rounded-full border-2 border-love-red flex items-center justify-center flex-shrink-0">
+                                <span class="check-mark hidden text-love-red text-xs sm:text-sm">✓</span>
                             </div>
-                            <span class="text-gray-300">To make you laugh, even in hard times</span>
+                            <span class="text-gray-300 text-sm sm:text-base">To make you laugh, always</span>
                         </div>
-                        <div class="flex items-center gap-4 cursor-pointer hover:bg-white/5 p-3 rounded-lg transition"
+                        <div class="flex items-center gap-3 sm:gap-4 cursor-pointer hover:bg-white/5 active:bg-white/10 p-2 sm:p-3 rounded-lg transition touch-feedback"
                             onclick="checkPromise(this)">
-                            <div class="w-6 h-6 rounded-full border-2 border-love-red flex items-center justify-center">
-                                <span class="check-mark hidden text-love-red">✓</span>
+                            <div
+                                class="w-5 h-5 sm:w-6 sm:h-6 rounded-full border-2 border-love-red flex items-center justify-center flex-shrink-0">
+                                <span class="check-mark hidden text-love-red text-xs sm:text-sm">✓</span>
                             </div>
-                            <span class="text-gray-300">To always choose you</span>
+                            <span class="text-gray-300 text-sm sm:text-base">To always choose you</span>
                         </div>
                     </div>
 
-                    <p class="text-xs text-gray-500 mt-6">👆 Click each promise to seal it forever</p>
+                    <p class="text-[10px] sm:text-xs text-gray-500 mt-4 sm:mt-6">👆 Tap each promise to seal it forever
+                    </p>
                 </div>
             </section>
 
+            <!-- Photo Stack Gallery -->
+            <section class="mt-20 sm:mt-24 md:mt-32 px-2">
+                <div class="text-center mb-8 sm:mb-10">
+                    <h2 class="font-serif text-xl sm:text-2xl md:text-3xl lg:text-4xl text-white mb-2 sm:mb-3">Our
+                        Moments</h2>
+                    <p class="text-love-light font-script text-base sm:text-lg md:text-xl">📸 Tap to shuffle through</p>
+                </div>
+
+                <div class="relative h-80 sm:h-96 md:h-[28rem] max-w-sm mx-auto" id="photo-stack">
+                    <!-- Photo 5 (bottom) -->
+                    <div class="photo-card absolute inset-0 cursor-pointer touch-feedback"
+                        style="transform: rotate(-8deg) translateY(16px);" onclick="shufflePhoto(this)">
+                        <div class="bg-white p-2 sm:p-3 rounded-lg shadow-2xl h-full">
+                            <img src="https://images.unsplash.com/photo-1529634806980-85c3dd6d34ac?w=400&h=500&fit=crop"
+                                alt="Memory" class="w-full h-[85%] object-cover rounded">
+                            <p class="font-script text-gray-700 text-center mt-2 text-sm sm:text-base">Adventures
+                                together 🌟</p>
+                        </div>
+                    </div>
+                    <!-- Photo 4 -->
+                    <div class="photo-card absolute inset-0 cursor-pointer touch-feedback"
+                        style="transform: rotate(6deg) translateY(12px);" onclick="shufflePhoto(this)">
+                        <div class="bg-white p-2 sm:p-3 rounded-lg shadow-2xl h-full">
+                            <img src="https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?w=400&h=500&fit=crop"
+                                alt="Memory" class="w-full h-[85%] object-cover rounded">
+                            <p class="font-script text-gray-700 text-center mt-2 text-sm sm:text-base">Spontaneous fun
+                                🎉</p>
+                        </div>
+                    </div>
+                    <!-- Photo 3 -->
+                    <div class="photo-card absolute inset-0 cursor-pointer touch-feedback"
+                        style="transform: rotate(-4deg) translateY(8px);" onclick="shufflePhoto(this)">
+                        <div class="bg-white p-2 sm:p-3 rounded-lg shadow-2xl h-full">
+                            <img src="https://images.unsplash.com/photo-1474552226712-ac0f0961a954?w=400&h=500&fit=crop"
+                                alt="Memory" class="w-full h-[85%] object-cover rounded">
+                            <p class="font-script text-gray-700 text-center mt-2 text-sm sm:text-base">Cozy moments 💕
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Photo 2 -->
+                    <div class="photo-card absolute inset-0 cursor-pointer touch-feedback"
+                        style="transform: rotate(3deg) translateY(4px);" onclick="shufflePhoto(this)">
+                        <div class="bg-white p-2 sm:p-3 rounded-lg shadow-2xl h-full">
+                            <img src="https://images.unsplash.com/photo-1545389336-cf090694435e?w=400&h=500&fit=crop"
+                                alt="Memory" class="w-full h-[85%] object-cover rounded">
+                            <p class="font-script text-gray-700 text-center mt-2 text-sm sm:text-base">Just us two 💖
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Photo 1 (top) -->
+                    <div class="photo-card absolute inset-0 cursor-pointer touch-feedback"
+                        style="transform: rotate(-2deg);" onclick="shufflePhoto(this)">
+                        <div class="bg-white p-2 sm:p-3 rounded-lg shadow-2xl h-full">
+                            <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=400&h=500&fit=crop"
+                                alt="Memory" class="w-full h-[85%] object-cover rounded">
+                            <p class="font-script text-gray-700 text-center mt-2 text-sm sm:text-base">My favorite
+                                person ❤️</p>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-center text-[10px] sm:text-xs text-gray-500 mt-6">👆 Tap cards to shuffle through
+                    memories</p>
+            </section>
+
             <!-- Footer with Grand Finale -->
-            <footer class="mt-40 text-center pb-20">
-                <div class="inline-block p-8 md:p-12 glass-card rounded-2xl relative cursor-pointer group"
+            <footer class="mt-24 sm:mt-32 md:mt-40 text-center pb-12 sm:pb-16 md:pb-20 px-2">
+                <div class="inline-block p-5 sm:p-6 md:p-8 lg:p-12 glass-card rounded-xl sm:rounded-2xl relative cursor-pointer group touch-feedback"
                     onclick="grandFinale()" id="finale-card">
                     <div
-                        class="absolute inset-0 rounded-2xl bg-gradient-to-r from-love-red/0 via-love-red/20 to-love-red/0 opacity-0 group-hover:opacity-100 transition">
+                        class="absolute inset-0 rounded-xl sm:rounded-2xl bg-gradient-to-r from-love-red/0 via-love-red/20 to-love-red/0 opacity-0 group-hover:opacity-100 group-active:opacity-100 transition">
                     </div>
 
-                    <p class="font-serif text-2xl md:text-3xl mb-4 relative">I love you more than code.</p>
-                    <p class="font-script text-4xl md:text-5xl text-love-red shimmer-text relative">Forever & Always</p>
+                    <p class="font-serif text-lg sm:text-xl md:text-2xl lg:text-3xl mb-3 sm:mb-4 relative">I love you
+                        more than code.</p>
+                    <p
+                        class="font-script text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-love-red shimmer-text relative">
+                        Forever & Always</p>
 
-                    <div class="mt-6 text-sm text-gray-400 group-hover:text-love-light transition">
-                        👆 Click for the grand finale
-                    </div>
-
-                    <!-- Hidden message -->
-                    <div id="finale-message"
-                        class="absolute inset-0 flex items-center justify-center bg-love-red rounded-2xl opacity-0 pointer-events-none transition-opacity duration-500">
-                        <div class="text-center p-6">
-                            <div class="text-5xl mb-4">💍</div>
-                            <p class="font-script text-3xl text-white">Will you be mine forever?</p>
-                        </div>
+                    <div
+                        class="mt-4 sm:mt-6 text-xs sm:text-sm text-gray-400 group-hover:text-love-light group-active:text-love-light transition">
+                        👆 Tap for celebration
                     </div>
                 </div>
             </footer>
@@ -717,23 +849,24 @@
 
     <!-- Memory Modal -->
     <div id="memory-modal"
-        class="fixed inset-0 z-50 flex items-center justify-center bg-black/95 opacity-0 pointer-events-none transition-opacity duration-500">
-        <div class="relative max-w-md w-full mx-4 p-8 glass-card rounded-2xl text-center transform scale-90 transition-transform duration-500"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-black/95 opacity-0 pointer-events-none transition-opacity duration-500 p-4">
+        <div class="relative max-w-md w-full mx-auto p-5 sm:p-6 md:p-8 glass-card rounded-xl sm:rounded-2xl text-center transform scale-90 transition-transform duration-500"
             id="modal-content">
             <button onclick="closeModal()"
-                class="absolute top-4 right-4 text-white hover:text-love-red transition hover:rotate-90 duration-300">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
+                class="absolute top-3 right-3 sm:top-4 sm:right-4 text-white hover:text-love-red active:text-love-red transition p-1">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 sm:h-8 sm:w-8" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </button>
-            <div class="text-6xl mb-6 animate-heartbeat">❤️</div>
-            <h2 id="modal-title" class="font-serif text-3xl text-love-light mb-4"></h2>
-            <p id="modal-text" class="font-sans text-lg text-gray-200 leading-relaxed italic"></p>
+            <div class="text-4xl sm:text-5xl md:text-6xl mb-4 sm:mb-6 animate-heartbeat">❤️</div>
+            <h2 id="modal-title" class="font-serif text-xl sm:text-2xl md:text-3xl text-love-light mb-3 sm:mb-4"></h2>
+            <p id="modal-text" class="font-sans text-sm sm:text-base md:text-lg text-gray-200 leading-relaxed italic">
+            </p>
 
-            <div class="mt-6 flex justify-center gap-4">
+            <div class="mt-5 sm:mt-6 flex justify-center">
                 <button onclick="closeModal()"
-                    class="px-6 py-2 bg-love-red rounded-full text-white hover:bg-love-deep transition">
+                    class="px-5 sm:px-6 py-2 bg-love-red rounded-full text-white text-sm sm:text-base hover:bg-love-deep active:bg-love-deep transition touch-feedback">
                     Feel the love ❤️
                 </button>
             </div>
@@ -742,18 +875,19 @@
 
     <!-- Secret Message Modal -->
     <div id="secret-modal"
-        class="fixed inset-0 z-50 flex items-center justify-center bg-black/95 opacity-0 pointer-events-none transition-opacity duration-500">
+        class="fixed inset-0 z-50 flex items-center justify-center bg-black/95 opacity-0 pointer-events-none transition-opacity duration-500 p-4">
         <div
-            class="relative max-w-sm w-full mx-4 p-6 bg-gradient-to-br from-love-red to-love-pink rounded-2xl text-center transform scale-90 transition-transform duration-500">
-            <button onclick="closeSecretModal()" class="absolute top-3 right-3 text-white hover:opacity-70 transition">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+            class="relative max-w-sm w-full mx-auto p-5 sm:p-6 bg-gradient-to-br from-love-red to-love-pink rounded-xl sm:rounded-2xl text-center transform scale-90 transition-transform duration-500">
+            <button onclick="closeSecretModal()"
+                class="absolute top-2 right-2 sm:top-3 sm:right-3 text-white hover:opacity-70 active:opacity-70 transition p-1">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </button>
-            <div class="text-4xl mb-4">🤫</div>
-            <p class="text-xs text-white/70 uppercase tracking-widest mb-2">Secret Message</p>
-            <p id="secret-text" class="font-serif text-xl text-white"></p>
+            <div class="text-3xl sm:text-4xl mb-3 sm:mb-4">✨</div>
+            <p class="text-[10px] sm:text-xs text-white/70 uppercase tracking-widest mb-2">Special Message</p>
+            <p id="secret-text" class="font-serif text-base sm:text-lg md:text-xl text-white"></p>
         </div>
     </div>
 
@@ -761,8 +895,8 @@
         // ========== INITIALIZATION ==========
         let loveMeterInterval;
         let holdTimeout;
-        let daysCount = 0;
         let clickCount = 0;
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
         // Start love meter animation
         setTimeout(() => {
@@ -772,12 +906,16 @@
         // Create floating hearts
         createFloatingHearts();
 
-        // Setup cursor trail
-        setupCursorTrail();
+        // Setup cursor trail (desktop only)
+        if (!isTouchDevice) {
+            setupCursorTrail();
+        }
 
         // ========== LOVE METER ANIMATION ==========
         function animateLoveMeter() {
             const meter = document.getElementById('love-meter-fill');
+            if (!meter) return;
+
             let width = 0;
             loveMeterInterval = setInterval(() => {
                 if (width >= 100) {
@@ -791,24 +929,29 @@
         // ========== FLOATING HEARTS ==========
         function createFloatingHearts() {
             const container = document.getElementById('floating-hearts');
-            const hearts = ['❤️', '💕', '💖', '💗', '💓', '💝', '🌹', '✨'];
+            if (!container) return;
 
-            for (let i = 0; i < 20; i++) {
+            const hearts = ['❤️', '💕', '💖', '💗', '💓', '💝', '✨'];
+            const numHearts = isTouchDevice ? 12 : 20; // Fewer hearts on mobile for performance
+
+            for (let i = 0; i < numHearts; i++) {
                 const heart = document.createElement('div');
                 heart.className = 'heart-particle';
                 heart.innerText = hearts[Math.floor(Math.random() * hearts.length)];
                 heart.style.left = Math.random() * 100 + '%';
-                heart.style.animationDelay = Math.random() * 8 + 's';
-                heart.style.fontSize = (15 + Math.random() * 15) + 'px';
+                heart.style.animationDelay = Math.random() * 10 + 's';
+                heart.style.fontSize = (12 + Math.random() * 12) + 'px';
                 container.appendChild(heart);
             }
         }
 
-        // ========== CURSOR TRAIL ==========
+        // ========== CURSOR TRAIL (Desktop Only) ==========
         function setupCursorTrail() {
             const trailContainer = document.getElementById('cursor-trail');
+            if (!trailContainer) return;
+
             const trails = [];
-            const maxTrails = 8;
+            const maxTrails = 6;
 
             document.addEventListener('mousemove', (e) => {
                 const trail = document.createElement('div');
@@ -825,7 +968,7 @@
                         trail.remove();
                         trails.shift();
                     }, 300);
-                }, 500);
+                }, 400);
 
                 if (trails.length > maxTrails) {
                     trails[0].remove();
@@ -837,13 +980,15 @@
         // ========== RIPPLE EFFECT ==========
         function createRipple(event) {
             const entryScreen = document.getElementById('entry-screen');
+            if (!entryScreen) return;
+
             const ripple = document.createElement('div');
             ripple.className = 'ripple';
-            ripple.style.left = event.clientX - 150 + 'px';
-            ripple.style.top = event.clientY - 150 + 'px';
+            ripple.style.left = (event.clientX || event.touches?.[0]?.clientX || 0) - 100 + 'px';
+            ripple.style.top = (event.clientY || event.touches?.[0]?.clientY || 0) - 100 + 'px';
             entryScreen.appendChild(ripple);
 
-            setTimeout(() => ripple.remove(), 1000);
+            setTimeout(() => ripple.remove(), 800);
         }
 
         // ========== COUNTDOWN & ENTRY ==========
@@ -854,6 +999,8 @@
             const entryContent = document.getElementById('entry-content');
             const countdownDisplay = document.getElementById('countdown-display');
             const countdownNumber = document.getElementById('countdown-number');
+
+            if (!entryContent || !countdownDisplay || !countdownNumber) return;
 
             // Hide content, show countdown
             entryContent.style.opacity = '0';
@@ -868,8 +1015,8 @@
                     countdownNumber.innerText = count;
                     // Burst effect
                     confetti({
-                        particleCount: 30,
-                        spread: 60,
+                        particleCount: 20,
+                        spread: 50,
                         origin: { y: 0.5 },
                         colors: ['#ff0a54', '#ff477e'],
                         shapes: ['heart']
@@ -877,14 +1024,16 @@
                 } else {
                     clearInterval(countdownInterval);
                     countdownNumber.innerHTML = '❤️';
-                    setTimeout(enterSite, 500);
+                    setTimeout(enterSite, 400);
                 }
-            }, 800);
+            }, 700);
         }
 
         function enterSite() {
             const entryScreen = document.getElementById('entry-screen');
             const mainContent = document.getElementById('main-content');
+
+            if (!entryScreen || !mainContent) return;
 
             entryScreen.style.opacity = '0';
             setTimeout(() => {
@@ -892,32 +1041,32 @@
                 mainContent.style.opacity = '1';
                 startRain();
                 animateDaysCounter();
-            }, 1000);
+            }, 800);
         }
 
         // ========== RAINING HEARTS ==========
         function startRain() {
-            var duration = 15 * 1000;
-            var end = Date.now() + duration;
+            const duration = 10 * 1000;
+            const end = Date.now() + duration;
 
             (function frame() {
                 confetti({
-                    particleCount: 2,
+                    particleCount: 1,
                     angle: 60,
-                    spread: 55,
+                    spread: 45,
                     origin: { x: 0 },
                     colors: ['#ff0a54', '#ff477e'],
                     shapes: ['heart'],
-                    scalar: 2
+                    scalar: 1.5
                 });
                 confetti({
-                    particleCount: 2,
+                    particleCount: 1,
                     angle: 120,
-                    spread: 55,
+                    spread: 45,
                     origin: { x: 1 },
                     colors: ['#ff0a54', '#ff477e'],
                     shapes: ['heart'],
-                    scalar: 2
+                    scalar: 1.5
                 });
 
                 if (Date.now() < end) {
@@ -929,10 +1078,12 @@
         // ========== DAYS COUNTER ANIMATION ==========
         function animateDaysCounter() {
             const counter = document.getElementById('days-counter');
+            if (!counter) return;
+
             const targetDays = 365; // Customize this!
             let current = 0;
 
-            const increment = Math.ceil(targetDays / 50);
+            const increment = Math.ceil(targetDays / 40);
             const interval = setInterval(() => {
                 current += increment;
                 if (current >= targetDays) {
@@ -940,48 +1091,48 @@
                     clearInterval(interval);
                 }
                 counter.innerText = current;
-            }, 50);
+            }, 40);
         }
 
         // ========== INCREMENT LOVE ==========
         function incrementLove(element) {
             const counter = element.querySelector('#days-counter') || element.querySelector('div:first-child');
-            counter.classList.add('animate-heartbeat');
+            if (counter) {
+                counter.classList.add('animate-heartbeat');
+                setTimeout(() => counter.classList.remove('animate-heartbeat'), 500);
+            }
 
             confetti({
-                particleCount: 20,
-                spread: 50,
+                particleCount: 15,
+                spread: 40,
                 origin: { y: 0.6 },
                 colors: ['#ff0a54', '#ff477e'],
                 shapes: ['heart']
             });
-
-            setTimeout(() => counter.classList.remove('animate-heartbeat'), 500);
         }
 
         // ========== HEART BURST ==========
         function showHeartBurst(event) {
+            event.stopPropagation();
+
             const reasons = [
-                "Your smile",
-                "Your laugh",
-                "Your kindness",
-                "Your hugs",
-                "Your eyes",
-                "Your voice",
-                "Your touch",
-                "You being YOU"
+                "Your beautiful smile 💕",
+                "Your kind heart ❤️",
+                "Your contagious laugh 😊",
+                "The way you care 💗",
+                "Just being YOU ✨"
             ];
 
-            for (let i = 0; i < 8; i++) {
+            for (let i = 0; i < 5; i++) {
                 setTimeout(() => {
                     confetti({
-                        particleCount: 50,
-                        spread: 100,
+                        particleCount: 30,
+                        spread: 80,
                         origin: { x: Math.random(), y: Math.random() * 0.6 },
                         colors: ['#ff0a54', '#ff477e', '#ff85a1', '#fff'],
                         shapes: ['heart', 'circle']
                     });
-                }, i * 200);
+                }, i * 150);
             }
 
             // Show a random reason
@@ -994,29 +1145,33 @@
             element.classList.add('holding');
             holdTimeout = setTimeout(() => {
                 const secret = element.querySelector('.secret-msg');
-                secret.classList.add('revealed');
-                confetti({
-                    particleCount: 50,
-                    spread: 70,
-                    origin: { y: 0.6 },
-                    colors: ['#ff0a54', '#ffffff'],
-                    shapes: ['heart']
-                });
-            }, 2000);
+                if (secret) {
+                    secret.classList.add('revealed');
+                    confetti({
+                        particleCount: 30,
+                        spread: 50,
+                        origin: { y: 0.6 },
+                        colors: ['#ff0a54', '#ffffff'],
+                        shapes: ['heart']
+                    });
+                }
+            }, 1500);
         }
 
         function endHold(element) {
             element.classList.remove('holding');
             clearTimeout(holdTimeout);
             const secret = element.querySelector('.secret-msg');
-            setTimeout(() => secret.classList.remove('revealed'), 500);
+            if (secret) {
+                setTimeout(() => secret.classList.remove('revealed'), 400);
+            }
         }
 
         // ========== MEMORY REVEAL ==========
         function revealMemory(element, title, text) {
             confetti({
-                particleCount: 100,
-                spread: 70,
+                particleCount: 60,
+                spread: 60,
                 origin: { y: 0.6 },
                 colors: ['#ff0a54', '#ffffff'],
                 shapes: ['heart']
@@ -1028,36 +1183,39 @@
             const modal = document.getElementById('memory-modal');
             const content = document.getElementById('modal-content');
 
-            modal.style.pointerEvents = 'auto';
-            modal.style.opacity = '1';
-            content.style.transform = 'scale(1)';
+            if (modal && content) {
+                modal.style.pointerEvents = 'auto';
+                modal.style.opacity = '1';
+                content.style.transform = 'scale(1)';
+            }
         }
 
         function closeModal() {
             const modal = document.getElementById('memory-modal');
             const content = document.getElementById('modal-content');
 
-            modal.style.opacity = '0';
-            modal.style.pointerEvents = 'none';
-            content.style.transform = 'scale(0.9)';
+            if (modal && content) {
+                modal.style.opacity = '0';
+                modal.style.pointerEvents = 'none';
+                content.style.transform = 'scale(0.9)';
+            }
         }
 
-        // ========== SECRET MESSAGE ==========
-        function showSecretMessage(element, message) {
-            event.stopPropagation();
-            showSecretModal(message);
-        }
-
+        // ========== SECRET MODAL ==========
         function showSecretModal(message) {
-            document.getElementById('secret-text').innerText = message;
+            const secretText = document.getElementById('secret-text');
             const modal = document.getElementById('secret-modal');
-            modal.style.opacity = '1';
-            modal.style.pointerEvents = 'auto';
-            modal.querySelector('div').style.transform = 'scale(1)';
+
+            if (secretText && modal) {
+                secretText.innerText = message;
+                modal.style.opacity = '1';
+                modal.style.pointerEvents = 'auto';
+                modal.querySelector('div').style.transform = 'scale(1)';
+            }
 
             confetti({
-                particleCount: 30,
-                spread: 50,
+                particleCount: 25,
+                spread: 45,
                 origin: { y: 0.5 },
                 colors: ['#ff0a54', '#ff477e', '#fff'],
                 shapes: ['heart']
@@ -1066,23 +1224,27 @@
 
         function closeSecretModal() {
             const modal = document.getElementById('secret-modal');
-            modal.style.opacity = '0';
-            modal.style.pointerEvents = 'none';
+            if (modal) {
+                modal.style.opacity = '0';
+                modal.style.pointerEvents = 'none';
+            }
         }
 
         // ========== CHECK PROMISE ==========
         function checkPromise(element) {
             const check = element.querySelector('.check-mark');
-            check.classList.toggle('hidden');
+            if (check) {
+                check.classList.toggle('hidden');
 
-            if (!check.classList.contains('hidden')) {
-                confetti({
-                    particleCount: 20,
-                    spread: 40,
-                    origin: { y: 0.7 },
-                    colors: ['#ff0a54'],
-                    shapes: ['heart']
-                });
+                if (!check.classList.contains('hidden')) {
+                    confetti({
+                        particleCount: 15,
+                        spread: 35,
+                        origin: { y: 0.7 },
+                        colors: ['#ff0a54'],
+                        shapes: ['heart']
+                    });
+                }
             }
         }
 
@@ -1090,108 +1252,99 @@
         function triggerEasterEgg(event) {
             event.stopPropagation();
 
-            for (let i = 0; i < 10; i++) {
+            for (let i = 0; i < 8; i++) {
                 setTimeout(() => {
                     confetti({
-                        particleCount: 100,
+                        particleCount: 50,
                         spread: 360,
                         origin: { x: Math.random(), y: Math.random() },
-                        colors: ['#ff0a54', '#ff477e', '#ff85a1', '#fff', '#gold'],
-                        shapes: ['heart', 'circle', 'star']
+                        colors: ['#ff0a54', '#ff477e', '#ff85a1', '#fff', '#ffd700'],
+                        shapes: ['heart', 'circle']
                     });
                 }, i * 100);
             }
 
-            showSecretModal("🔮 You found the hidden surprise! You're so curious... I love that about you!");
+            showSecretModal("🔮 You found the secret! Your love is magical! ✨");
         }
 
         // ========== GRAND FINALE ==========
         function grandFinale() {
             clickCount++;
 
-            if (clickCount >= 3) {
-                const message = document.getElementById('finale-message');
-                message.style.opacity = '1';
-                message.style.pointerEvents = 'auto';
+            // Always trigger celebration
+            const burstCount = Math.min(clickCount * 2, 10);
 
-                // Epic confetti explosion
-                const duration = 5 * 1000;
-                const end = Date.now() + duration;
-
-                (function frame() {
-                    confetti({
-                        particleCount: 5,
-                        angle: 60,
-                        spread: 100,
-                        origin: { x: 0, y: 0.5 },
-                        colors: ['#ff0a54', '#ff477e', '#ff85a1', '#fff', '#ffd700'],
-                        shapes: ['heart']
-                    });
-                    confetti({
-                        particleCount: 5,
-                        angle: 120,
-                        spread: 100,
-                        origin: { x: 1, y: 0.5 },
-                        colors: ['#ff0a54', '#ff477e', '#ff85a1', '#fff', '#ffd700'],
-                        shapes: ['heart']
-                    });
-
-                    if (Date.now() < end) {
-                        requestAnimationFrame(frame);
-                    }
-                }());
-
+            for (let i = 0; i < burstCount; i++) {
                 setTimeout(() => {
-                    message.style.opacity = '0';
-                    message.style.pointerEvents = 'none';
-                    clickCount = 0;
-                }, 5000);
-            } else {
-                confetti({
-                    particleCount: 50,
-                    spread: 70,
-                    origin: { y: 0.6 },
-                    colors: ['#ff0a54', '#ff477e'],
-                    shapes: ['heart']
-                });
+                    confetti({
+                        particleCount: 40,
+                        spread: 100,
+                        origin: { x: Math.random(), y: Math.random() * 0.6 },
+                        colors: ['#ff0a54', '#ff477e', '#ff85a1', '#fff', '#ffd700'],
+                        shapes: ['heart']
+                    });
+                }, i * 80);
             }
+
+            // Reset click count after a while
+            setTimeout(() => {
+                clickCount = 0;
+            }, 5000);
         }
 
-        // ========== DOUBLE CLICK HANDLER ==========
-        document.getElementById('main-heart-btn').ondblclick = function (e) {
-            e.stopPropagation();
-            showSecretModal("I've been counting the days until I could tell you... you mean the world to me.");
-        };
-
-        // ========== KEYBOARD SECRETS ==========
-        let konamiCode = [];
-        const secretCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-
-        document.addEventListener('keydown', (e) => {
-            konamiCode.push(e.key);
-            if (konamiCode.length > secretCode.length) {
-                konamiCode.shift();
-            }
-            if (konamiCode.join(',') === secretCode.join(',')) {
-                triggerKonamiEasterEgg();
-            }
+        // ========== Close modals on backdrop click ==========
+        document.getElementById('memory-modal')?.addEventListener('click', function (e) {
+            if (e.target === this) closeModal();
         });
 
-        function triggerKonamiEasterEgg() {
-            showSecretModal("🎮 You unlocked the secret gamer message: Our love is like a save point - I always want to come back to you!");
+        document.getElementById('secret-modal')?.addEventListener('click', function (e) {
+            if (e.target === this) closeSecretModal();
+        });
 
-            for (let i = 0; i < 20; i++) {
-                setTimeout(() => {
-                    confetti({
-                        particleCount: 50,
-                        spread: 360,
-                        origin: { x: Math.random(), y: Math.random() },
-                        colors: ['#ff0a54', '#ff477e', '#00ff00', '#0000ff', '#ffff00'],
-                        shapes: ['heart', 'circle', 'star']
-                    });
-                }, i * 100);
-            }
+        // ========== PHOTO STACK SHUFFLE ==========
+        function shufflePhoto(card) {
+            const stack = document.getElementById('photo-stack');
+            if (!stack || card.classList.contains('shuffling')) return;
+
+            // Add shuffling animation
+            card.classList.add('shuffling');
+
+            // Confetti burst
+            confetti({
+                particleCount: 20,
+                spread: 50,
+                origin: { y: 0.5 },
+                colors: ['#ff0a54', '#ff477e', '#fff'],
+                shapes: ['heart']
+            });
+
+            // Move card to back after animation
+            setTimeout(() => {
+                card.classList.remove('shuffling');
+                stack.insertBefore(card, stack.firstChild);
+
+                // Reassign random rotations
+                const cards = stack.querySelectorAll('.photo-card');
+                const rotations = [-8, 6, -4, 3, -2];
+                const translations = [16, 12, 8, 4, 0];
+
+                cards.forEach((c, i) => {
+                    const rot = rotations[i] || (Math.random() * 10 - 5);
+                    const trans = translations[i] || 0;
+                    c.style.transform = `rotate(${rot}deg) translateY(${trans}px)`;
+                });
+            }, 500);
         }
+
+        // ========== ENSURE SCROLLABLE (Fix scroll blocking) ==========
+        function ensureScrollable() {
+            document.body.style.overflow = '';
+            document.body.style.pointerEvents = '';
+            document.documentElement.style.overflow = '';
+        }
+
+        // Run periodically to prevent scroll lock
+        setInterval(ensureScrollable, 2000);
     </script>
 </body>
 
