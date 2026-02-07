@@ -1678,6 +1678,239 @@
 
         // Run periodically to prevent scroll lock
         setInterval(ensureScrollable, 2000);
+
+        // ========== VOICE NOTE AUDIO CONTROLS ==========
+        const voiceAudio = document.getElementById('voice-audio');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+        const audioWave = document.getElementById('audio-wave');
+        const audioProgress = document.getElementById('audio-progress');
+        const currentTimeEl = document.getElementById('current-time');
+        const durationEl = document.getElementById('duration');
+        const audioStatus = document.getElementById('audio-status');
+
+        let isPlaying = false;
+
+        // Format time helper
+        function formatTime(seconds) {
+            if (isNaN(seconds)) return '0:00';
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        // Toggle play/pause
+        function toggleAudio() {
+            if (!voiceAudio) {
+                showToast('🎤 Add your voice message file to enable playback!');
+                return;
+            }
+
+            if (isPlaying) {
+                voiceAudio.pause();
+                playIcon.classList.remove('hidden');
+                pauseIcon.classList.add('hidden');
+                audioWave.classList.add('paused');
+                audioStatus.innerText = '⏸️ Paused';
+            } else {
+                voiceAudio.play().catch(() => {
+                    showToast('🎤 Add your voice message file (voice-message.mp3)');
+                    audioStatus.innerText = '📁 Add voice-message.mp3 to enable';
+                });
+                playIcon.classList.add('hidden');
+                pauseIcon.classList.remove('hidden');
+                audioWave.classList.remove('paused');
+                audioStatus.innerText = '💕 Playing your message...';
+            }
+            isPlaying = !isPlaying;
+
+            // Confetti on play
+            if (isPlaying) {
+                confetti({
+                    particleCount: 15,
+                    spread: 40,
+                    origin: { y: 0.6 },
+                    colors: ['#ff0a54', '#ff477e'],
+                    shapes: ['heart']
+                });
+            }
+        }
+
+        // Update progress bar
+        if (voiceAudio) {
+            voiceAudio.addEventListener('loadedmetadata', () => {
+                durationEl.innerText = formatTime(voiceAudio.duration);
+            });
+
+            voiceAudio.addEventListener('timeupdate', () => {
+                const progress = (voiceAudio.currentTime / voiceAudio.duration) * 100;
+                audioProgress.value = progress || 0;
+                currentTimeEl.innerText = formatTime(voiceAudio.currentTime);
+            });
+
+            voiceAudio.addEventListener('ended', () => {
+                isPlaying = false;
+                playIcon.classList.remove('hidden');
+                pauseIcon.classList.add('hidden');
+                audioWave.classList.add('paused');
+                audioStatus.innerText = '💕 Message complete! Tap to replay';
+                audioProgress.value = 0;
+                currentTimeEl.innerText = '0:00';
+
+                // Celebration confetti
+                confetti({
+                    particleCount: 50,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#ff0a54', '#ff477e', '#fff'],
+                    shapes: ['heart']
+                });
+            });
+        }
+
+        // Seek audio
+        function seekAudio(value) {
+            if (voiceAudio && voiceAudio.duration) {
+                voiceAudio.currentTime = (value / 100) * voiceAudio.duration;
+            }
+        }
+
+        // ========== SHARE FUNCTIONALITY ==========
+        function showToast(message) {
+            // Remove existing toast
+            const existing = document.querySelector('.toast');
+            if (existing) existing.remove();
+
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerText = message;
+            document.body.appendChild(toast);
+
+            setTimeout(() => toast.classList.add('show'), 10);
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Main share function (uses native share API if available)
+        async function shareStory() {
+            const shareData = {
+                title: 'Our Love Story ❤️',
+                text: 'Someone special made this love story for me! 💕',
+                url: window.location.href
+            };
+
+            if (navigator.share) {
+                try {
+                    await navigator.share(shareData);
+                    showToast('💕 Shared successfully!');
+                    confetti({
+                        particleCount: 30,
+                        spread: 60,
+                        origin: { y: 0.6 },
+                        colors: ['#ff0a54', '#ff477e', '#fff'],
+                        shapes: ['heart']
+                    });
+                } catch (err) {
+                    if (err.name !== 'AbortError') {
+                        showToast('Choose a share option below 👇');
+                    }
+                }
+            } else {
+                showToast('Choose a share option below 👇');
+            }
+        }
+
+        // Copy link to clipboard
+        async function copyLink() {
+            try {
+                await navigator.clipboard.writeText(window.location.href);
+                showToast('🔗 Link copied to clipboard!');
+                confetti({
+                    particleCount: 20,
+                    spread: 40,
+                    origin: { y: 0.7 },
+                    colors: ['#ff0a54'],
+                    shapes: ['heart']
+                });
+            } catch (err) {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = window.location.href;
+                textArea.style.position = 'fixed';
+                textArea.style.opacity = '0';
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showToast('🔗 Link copied!');
+                } catch (e) {
+                    showToast('❌ Could not copy link');
+                }
+                document.body.removeChild(textArea);
+            }
+        }
+
+        // Share to WhatsApp
+        function shareToWhatsApp() {
+            const text = encodeURIComponent('💕 Look at this beautiful love story someone made for me! ' + window.location.href);
+            window.open(`https://wa.me/?text=${text}`, '_blank');
+            showToast('💚 Opening WhatsApp...');
+        }
+
+        // Share to Twitter
+        function shareToTwitter() {
+            const text = encodeURIComponent('Someone special made this love story for me! 💕❤️');
+            const url = encodeURIComponent(window.location.href);
+            window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
+            showToast('🐦 Opening Twitter...');
+        }
+
+        // Share to Facebook
+        function shareToFacebook() {
+            const url = encodeURIComponent(window.location.href);
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+            showToast('📘 Opening Facebook...');
+        }
+
+        // Download page (saves as bookmark)
+        function downloadPage() {
+            showToast('📥 To save: Press Ctrl+S (Cmd+S on Mac) or bookmark this page');
+
+            // Trigger browser's save dialog
+            const link = document.createElement('a');
+            link.href = window.location.href;
+            link.download = 'our-love-story.html';
+
+            // Create a simple instruction
+            setTimeout(() => {
+                if (confirm('Would you like to bookmark this page for easy access?')) {
+                    showToast('💕 Press Ctrl+D (Cmd+D on Mac) to bookmark!');
+                }
+            }, 500);
+        }
+
+        // Screenshot reminder
+        function takeScreenshot() {
+            showToast('📸 Press the screenshot button on your device to capture this moment!');
+
+            // Give visual feedback
+            document.body.style.transition = 'all 0.2s';
+            document.body.style.filter = 'brightness(1.2)';
+            setTimeout(() => {
+                document.body.style.filter = '';
+            }, 200);
+
+            confetti({
+                particleCount: 25,
+                spread: 50,
+                origin: { y: 0.5 },
+                colors: ['#ff0a54', '#ff477e'],
+                shapes: ['heart']
+            });
+        }
     </script>
 </body>
 
