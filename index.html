@@ -455,6 +455,221 @@
                 cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath fill='%23ff0a54' d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E") 10 10, auto;
             }
         }
+
+        /* Voice Note Section */
+        .voice-note-card {
+            background: linear-gradient(135deg, rgba(255, 10, 84, 0.15) 0%, rgba(255, 71, 126, 0.1) 100%);
+            border: 1px solid rgba(255, 71, 126, 0.3);
+        }
+
+        .audio-wave {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            height: 40px;
+        }
+
+        .audio-wave span {
+            width: 4px;
+            background: linear-gradient(to top, #ff0a54, #ff85a1);
+            border-radius: 2px;
+            animation: wave 1.2s ease-in-out infinite;
+        }
+
+        .audio-wave.paused span {
+            animation-play-state: paused;
+            height: 8px !important;
+        }
+
+        .audio-wave span:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .audio-wave span:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .audio-wave span:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .audio-wave span:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+
+        .audio-wave span:nth-child(5) {
+            animation-delay: 0.4s;
+        }
+
+        .audio-wave span:nth-child(6) {
+            animation-delay: 0.5s;
+        }
+
+        .audio-wave span:nth-child(7) {
+            animation-delay: 0.4s;
+        }
+
+        .audio-wave span:nth-child(8) {
+            animation-delay: 0.3s;
+        }
+
+        .audio-wave span:nth-child(9) {
+            animation-delay: 0.2s;
+        }
+
+        .audio-wave span:nth-child(10) {
+            animation-delay: 0.1s;
+        }
+
+        @keyframes wave {
+
+            0%,
+            100% {
+                height: 8px;
+            }
+
+            50% {
+                height: 35px;
+            }
+        }
+
+        .play-btn {
+            transition: all 0.3s ease;
+        }
+
+        .play-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(255, 10, 84, 0.5);
+        }
+
+        .play-btn:active {
+            transform: scale(0.95);
+        }
+
+        .audio-progress {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .audio-progress::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 14px;
+            height: 14px;
+            background: #ff0a54;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(255, 10, 84, 0.5);
+        }
+
+        .audio-progress::-moz-range-thumb {
+            width: 14px;
+            height: 14px;
+            background: #ff0a54;
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 0 10px rgba(255, 10, 84, 0.5);
+        }
+
+        /* Share Button */
+        .share-btn {
+            background: linear-gradient(135deg, #ff0a54, #ff477e);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .share-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .share-btn:hover::before {
+            left: 100%;
+        }
+
+        .share-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 10, 84, 0.4);
+        }
+
+        .share-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .share-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .share-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            padding: 12px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .share-option:hover {
+            background: rgba(255, 10, 84, 0.2);
+            border-color: rgba(255, 10, 84, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .share-option:active {
+            transform: scale(0.95);
+        }
+
+        .share-option span {
+            font-size: 24px;
+        }
+
+        .share-option p {
+            font-size: 10px;
+            color: #9ca3af;
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: linear-gradient(135deg, #ff0a54, #ff477e);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 14px;
+            z-index: 9999;
+            opacity: 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(255, 10, 84, 0.4);
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
     </style>
 </head>
 
@@ -822,6 +1037,124 @@
                 </div>
                 <p class="text-center text-[10px] sm:text-xs text-gray-500 mt-6">👆 Tap cards to shuffle through
                     memories</p>
+            </section>
+
+            <!-- Voice Note Section -->
+            <section class="mt-20 sm:mt-24 md:mt-32 px-2">
+                <div class="text-center mb-8 sm:mb-10">
+                    <h2 class="font-serif text-xl sm:text-2xl md:text-3xl lg:text-4xl text-white mb-2 sm:mb-3">A Message
+                        From My Heart</h2>
+                    <p class="text-love-light font-script text-base sm:text-lg md:text-xl">🎤 Press play to hear my
+                        voice...</p>
+                </div>
+
+                <div class="voice-note-card max-w-md mx-auto rounded-2xl p-6 sm:p-8 glass-card">
+                    <!-- Audio Wave Visualizer -->
+                    <div class="audio-wave paused mb-6" id="audio-wave">
+                        <span></span><span></span><span></span><span></span><span></span>
+                        <span></span><span></span><span></span><span></span><span></span>
+                    </div>
+
+                    <!-- Play Button -->
+                    <div class="flex items-center justify-center gap-4 mb-4">
+                        <button onclick="toggleAudio()" id="play-btn"
+                            class="play-btn w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-r from-love-red to-love-pink flex items-center justify-center shadow-lg touch-feedback">
+                            <svg id="play-icon" xmlns="http://www.w3.org/2000/svg"
+                                class="h-8 w-8 sm:h-10 sm:w-10 text-white ml-1" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg"
+                                class="h-8 w-8 sm:h-10 sm:w-10 text-white hidden" viewBox="0 0 20 20"
+                                fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Progress Bar -->
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-xs text-gray-400 w-10 text-right" id="current-time">0:00</span>
+                        <input type="range" min="0" max="100" value="0" class="audio-progress flex-1"
+                            id="audio-progress" oninput="seekAudio(this.value)">
+                        <span class="text-xs text-gray-400 w-10" id="duration">0:00</span>
+                    </div>
+
+                    <!-- Message Indicator -->
+                    <div class="text-center">
+                        <p class="text-xs sm:text-sm text-gray-400">
+                            <span id="audio-status">💕 Tap play to hear a special message</span>
+                        </p>
+                    </div>
+
+                    <!-- Hidden Audio Element -->
+                    <!-- Replace src with your actual audio file URL -->
+                    <audio id="voice-audio" preload="metadata">
+                        <source src="voice-message.mp3" type="audio/mpeg">
+                        <source src="voice-message.ogg" type="audio/ogg">
+                        <!-- Fallback message for demo -->
+                    </audio>
+                </div>
+
+                <p class="text-center text-[10px] sm:text-xs text-gray-500 mt-4">
+                    💡 Tip: Add your own voice message by replacing the audio file
+                </p>
+            </section>
+
+            <!-- Share Section -->
+            <section class="mt-20 sm:mt-24 md:mt-32 px-2">
+                <div class="text-center mb-8 sm:mb-10">
+                    <h2 class="font-serif text-xl sm:text-2xl md:text-3xl lg:text-4xl text-white mb-2 sm:mb-3">Share The
+                        Love</h2>
+                    <p class="text-love-light font-script text-base sm:text-lg md:text-xl">💌 Save this moment or share
+                        the love...</p>
+                </div>
+
+                <div class="max-w-md mx-auto glass-card rounded-2xl p-6 sm:p-8 text-center">
+                    <!-- Main Share Button -->
+                    <button onclick="shareStory()"
+                        class="share-btn w-full py-4 px-6 rounded-xl text-white font-medium text-base sm:text-lg flex items-center justify-center gap-3 touch-feedback">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                        </svg>
+                        Share This Love Story
+                    </button>
+
+                    <!-- Share Options Grid -->
+                    <div class="share-options" id="share-options">
+                        <div class="share-option touch-feedback" onclick="copyLink()">
+                            <span>🔗</span>
+                            <p>Copy Link</p>
+                        </div>
+                        <div class="share-option touch-feedback" onclick="shareToWhatsApp()">
+                            <span>💚</span>
+                            <p>WhatsApp</p>
+                        </div>
+                        <div class="share-option touch-feedback" onclick="shareToTwitter()">
+                            <span>🐦</span>
+                            <p>Twitter</p>
+                        </div>
+                        <div class="share-option touch-feedback" onclick="shareToFacebook()">
+                            <span>📘</span>
+                            <p>Facebook</p>
+                        </div>
+                        <div class="share-option touch-feedback" onclick="downloadPage()">
+                            <span>📥</span>
+                            <p>Save Page</p>
+                        </div>
+                        <div class="share-option touch-feedback" onclick="takeScreenshot()">
+                            <span>📸</span>
+                            <p>Screenshot</p>
+                        </div>
+                    </div>
+
+                    <p class="text-xs text-gray-500 mt-4">Share this special page with your loved one 💕</p>
+                </div>
             </section>
 
             <!-- Footer with Grand Finale -->
